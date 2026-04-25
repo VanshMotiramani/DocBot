@@ -4,15 +4,18 @@ import os
 import shutil
 import time 
 import uuid
+import sys
 
 from config import GOOGLE_API_KEY, TMP_DIR, VECTOR_DB_DIR
-from app.rag.loader import loadDocuments
-from app.rag.splitter import splitDocs
-from app.rag.embeddings import getEmbeddings
-from app.rag.vectorstore import loadVectorStore, createVectorStore
-from app.rag.retriever import getRetriever
-from app.rag.memory import getMemory
-from app.rag.chain import create_chain
+from rag.loader import loadDocuments
+from rag.splitter import splitDocs
+from rag.embeddings import getEmbeddings
+from rag.vectorstore import loadVectorStore, createVectorStore
+from rag.retriever import getRetriever
+from rag.memory import getMemory
+from rag.chain import create_chain
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 st.title("RAG Chatbot")
 
