@@ -5,7 +5,7 @@ import shutil
 import time 
 import uuid
 
-from app.config import GOOGLE_API_KEY, TMP_DIR, VECTOR_DB_DIR
+from config import GOOGLE_API_KEY, TMP_DIR, VECTOR_DB_DIR
 from app.rag.loader import loadDocuments
 from app.rag.splitter import splitDocs
 from app.rag.embeddings import getEmbeddings
@@ -26,15 +26,12 @@ uploaded_files = st.file_uploader(
 
 if st.button("Process"):
 
-    # 🧹 Clear TMP
     if os.path.exists(TMP_DIR):
         shutil.rmtree(TMP_DIR)
     os.makedirs(TMP_DIR, exist_ok=True)
 
-    # 🔥 Reset chain
     st.session_state.chain = None
 
-    # 📥 Save files
     for file in uploaded_files:
         with open(os.path.join(TMP_DIR, file.name), "wb") as f:
             f.write(file.read())
@@ -48,7 +45,6 @@ if st.button("Process"):
 
     embeddings = getEmbeddings()
 
-    # 🔥 NEW VECTORSTORE EVERY TIME
     session_db = os.path.join(VECTOR_DB_DIR, str(uuid.uuid4()))
 
     vs = createVectorStore(chunks, embeddings, session_db)
