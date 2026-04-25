@@ -24,6 +24,9 @@ uploaded_files = st.file_uploader(
     accept_multiple_files=True
 )
 
+os.makedirs("data/tmp", exist_ok=True)
+os.makedirs("data/vectorstores", exist_ok=True)
+
 if st.button("Process"):
 
     if os.path.exists(TMP_DIR):
